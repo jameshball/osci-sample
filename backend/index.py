@@ -14,9 +14,9 @@ from flask_login import (
 from oauthlib.oauth2 import WebApplicationClient
 import requests
 
-from .sample import sample
-from .member import member
-from .model import db
+from backend.sample import sample
+from backend.member import member
+from backend.model import db
 
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
 GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
@@ -41,7 +41,7 @@ if 'DATABASE_URL' in os.environ:
 
 db.app = app
 db.init_app(app)
-from .model import *
+from backend.model import *
 
 migrate = Migrate(app, db)
 
