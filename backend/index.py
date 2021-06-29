@@ -2,7 +2,7 @@ import functools
 import json
 import os
 
-from flask import Flask, request, redirect, abort
+from flask import Flask, request, redirect, abort, render_template
 from flask_migrate import Migrate
 from flask_login import (
     LoginManager,
@@ -24,8 +24,7 @@ GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
 )
 
-
-app = Flask(__name__)
+app = Flask(__name__, template_folder="../templates", static_folder="../static")
 app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(24)
 app.register_blueprint(member)
 app.register_blueprint(sample)
@@ -55,6 +54,14 @@ def load_user(user_id):
 
 def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
+
+
+@app.route('/')
+def index():
+    if current_user.is_authenticated:
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
 
 
 @app.route("/login")
