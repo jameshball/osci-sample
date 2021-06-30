@@ -75,9 +75,9 @@
                     {% endif %}
                     <div class="card-footer">
                         {{sample.bit_depth}}bit {{sample.sample_rate}}kHz
-                        <button type="button" class="btn btn-outline-light download-button">
+                        <a href="{{ url_for('sample.download_sample', sample_id=sample.id) }}" role="button" class="btn btn-outline-light download-button">
                             {{sample.num_downloads}}<span class="material-icons download-icon">download</span>
-                        </button>
+                        </a>
                     </div>
                 </div>
                 {%endfor%}
