@@ -1,5 +1,6 @@
 html, body {
     height: 100vh;
+    font-family: 'Fira Code', monospace;
 }
 
 nav {
@@ -11,7 +12,7 @@ nav {
 }
 
 .navbar-brand {
-    font-family: 'Fira Code', monospace;
+    position: absolute;
     color: #00FF00 !important;
 }
 
@@ -19,4 +20,13 @@ nav {
     float: right;
     margin-left: 10px;
     margin-right: -5px;
+}
+
+.logout {
+    color: white;
+    transition: color .15s ease-in-out;
+}
+
+.logout:hover {
+    color: #FF0000;
 }

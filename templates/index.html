@@ -48,12 +48,17 @@
 
 <body>
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
-    <a class="navbar-brand" href="#">osci-sample</a>
-    <div class="collapse navbar-collapse" id="navbarText">
-        <div class="mr-auto"></div>
+    <a class="navbar-brand d-none d-md-block" href="#">osci-sample</a>
+    <div class="pull-sm-left"></div>
+    <div class="mx-auto">
         <button type="button" class="btn btn-outline-light">
-            New sample<span class="material-icons add-button">add</span>
+            new sample<span class="material-icons add-button">add</span>
         </button>
+    </div>
+    <div class="pull-sm-right">
+        <a href="{{ url_for('logout') }}" class="logout">
+            <span class="material-icons add-button">logout</span>
+        </a>
     </div>
 </nav>
 <section class="h-100 samples">

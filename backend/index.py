@@ -136,7 +136,7 @@ def callback():
 @login_required
 def logout():
     logout_user()
-    return 'Logged out'
+    return redirect(url_for('index'))
 
 
 @app.route("/auth-test")
