@@ -47,28 +47,53 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
     <a class="navbar-brand d-none d-md-block" href="#">osci-sample</a>
     <div class="pull-sm-left"></div>
     <div class="mx-auto">
         <button type="button" class="btn btn-outline-light">
-            new sample<span class="material-icons add-button">add</span>
+            new sample<span class="material-icons add-icon">add</span>
         </button>
     </div>
     <div class="pull-sm-right">
         <a href="{{ url_for('logout') }}" class="logout">
-            <span class="material-icons add-button">logout</span>
+            <span class="material-icons add-icon">logout</span>
         </a>
     </div>
 </nav>
 <section class="h-100 samples">
     <header class="container h-100">
-        <div class="d-flex align-items-center justify-content-center h-100">
-            <div class="d-flex flex-column">
-                <p class="text align-self-center p-2 logo-text">osci-sample</p>
-            </div>
+        <div class="d-flex justify-content-center h-100">
+            <div id="samples" class="d-flex flex-column w-100"></div>
         </div>
     </header>
 </section>
 </body>
+<script>
+    window.onload = function () {
+        fetch("{{ url_for('sample.get_samples') }}")
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (samples) {
+                const listItems = samples.samples.reduce((result, sample) => {
+                    result += `<div class="card w-100 text-white bg-dark">
+                                    <div class="card-header">${sample.first_name} ${sample.last_name} - ${sample.name}</div>
+                                    <div class="card-body">
+                                        <p class="card-text">${sample.description}</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        ${sample.bit_depth}bit ${sample.sample_rate}kHz
+                                        <button type="button" class="btn btn-outline-light download-button">
+                                            ${sample.num_downloads}<span class="material-icons download-icon">download</span>
+                                        </button>
+                                    </div>
+                                </div>`;
+                    return result;
+                }, '');
+                let resultElement = document.getElementById('samples');
+                resultElement.innerHTML = listItems;
+            });
+    };
+</script>
 </html>

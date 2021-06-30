@@ -3,11 +3,12 @@ html, body {
     font-family: 'Fira Code', monospace;
 }
 
-nav {
-    background-color: black;
+.bg-dark {
+    background-color: black !important;
 }
 
 .samples {
+    padding-top: 80px;
     background-color: #282828;
 }
 
@@ -16,10 +17,19 @@ nav {
     color: #00FF00 !important;
 }
 
-.add-button {
+.add-icon, .download-icon {
     float: right;
     margin-left: 10px;
     margin-right: -5px;
+}
+
+.download-button {
+    margin-left: 20px;
+    float: right;
+}
+
+.card-header {
+    font-size: 20px;
 }
 
 .logout {
