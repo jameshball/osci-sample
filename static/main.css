@@ -32,6 +32,10 @@ html, body {
     font-size: 20px;
 }
 
+#description {
+    min-height: 100px;
+}
+
 .logout {
     color: white;
     transition: color .15s ease-in-out;
@@ -39,4 +43,20 @@ html, body {
 
 .logout:hover {
     color: #FF0000;
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before{
+  background-color: #00FF00;
+}
+
+.custom-checkbox .custom-control-indicator {
+    border-radius: .1rem;
+}
+
+.custom-file-label {
+    margin: 0 15px;
+}
+
+.custom-file-input:lang(en)~.custom-file-label::after {
+    content: "browse";
 }

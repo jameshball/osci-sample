@@ -9,8 +9,6 @@ from backend.model import db, Member, Sample
 sample = Blueprint('sample', __name__)
 
 
-@sample.route('/samples', methods=['GET'])
-@login_required
 def get_samples():
     samples = Sample.query.all()
 
@@ -32,6 +30,4 @@ def get_samples():
             'username': creator.username,
         })
 
-    return {
-        'samples': samples_obj,
-    }
+    return samples_obj

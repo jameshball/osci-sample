@@ -7,3 +7,12 @@ from backend.model import db, Member
 
 member = Blueprint('member', __name__)
 
+
+@member.route('/member', methods=['GET'])
+@login_required
+def get_member():
+    u = current_user
+    return jsonify(
+        first_name=u.first_name,
+        last_name=u.last_name,
+    )

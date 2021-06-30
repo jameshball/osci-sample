@@ -14,7 +14,7 @@ from flask_login import (
 from oauthlib.oauth2 import WebApplicationClient
 import requests
 
-from backend.sample import sample
+from backend.sample import sample, get_samples
 from backend.member import member
 from backend.model import db
 
@@ -59,9 +59,15 @@ def get_google_provider_cfg():
 @app.route('/')
 def index():
     if current_user.is_authenticated:
-        return render_template('index.html')
+        return render_template('index.html', samples=get_samples())
     else:
         return render_template('login.html')
+
+
+@app.route('/new_sample')
+@login_required
+def new_sample():
+    return render_template('new_sample.html', first_name=current_user.first_name, last_name=current_user.last_name)
 
 
 @app.route("/login")
