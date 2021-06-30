@@ -12,6 +12,7 @@ class Sample(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     created_at = db.Column(db.DateTime, server_default=func.now())
 
+    anonymous = db.Column(db.Boolean, nullable=True)
     creator = db.Column(db.Integer, db.ForeignKey('member.id', ondelete='CASCADE', use_alter=True), nullable=False)
 
     name = db.Column(db.String(), nullable=False)

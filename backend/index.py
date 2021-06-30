@@ -13,6 +13,7 @@ from flask_login import (
 )
 from oauthlib.oauth2 import WebApplicationClient
 import requests
+from werkzeug.utils import secure_filename
 
 from backend.sample import sample, get_samples
 from backend.member import member
@@ -23,6 +24,8 @@ GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
 GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
 )
+
+ALLOWED_EXTENSIONS = {'wav'}
 
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
 app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(24)
@@ -64,9 +67,39 @@ def index():
         return render_template('login.html')
 
 
-@app.route('/new_sample')
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route('/new_sample', methods=['GET', 'POST'])
 @login_required
 def new_sample():
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename == '':
+            return redirect(request.url)
+        if not allowed_file(file.filename):
+            return redirect(request.url)
+
+        anonymous = request.form.get('anonymous', 'off')
+        description = request.form.get('description', '')
+
+        sample = Sample()
+        sample.audio_data = file.read()
+        sample.name = file.filename
+        sample.creator = current_user.id
+        sample.sample_rate = 192000
+        sample.bit_depth = 32
+        sample.description = description
+        sample.num_downloads = 0
+        sample.anonymous = True if anonymous == 'on' else False
+
+        db.session.add(sample)
+        db.session.commit()
+
     return render_template('new_sample.html', first_name=current_user.first_name, last_name=current_user.last_name)
 
 
