@@ -1,6 +1,7 @@
 import functools
 import json
 import os
+import re
 
 from flask import Flask, request, redirect, abort, render_template, url_for
 from flask_migrate import Migrate
@@ -121,10 +122,14 @@ def login():
     google_provider_cfg = get_google_provider_cfg()
     authorization_endpoint = google_provider_cfg["authorization_endpoint"]
 
+    base_url = re.sub("^http:", "https:", request.base_url, 1)
+
+    print(base_url)
+
     # Prepare request to get access to specified Google data scopes
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
-        redirect_uri=request.base_url + "/callback",
+        redirect_uri=base_url + "/callback",
         scope=["openid", "email", "profile"],
     )
     return redirect(request_uri)
