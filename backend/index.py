@@ -36,6 +36,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.session_protection = None
 
+app.config['MAX_CONTENT_LENGTH'] = 21 * 1024 * 1024
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 if 'DATABASE_URL' in os.environ:
@@ -99,6 +100,8 @@ def new_sample():
 
         db.session.add(sample)
         db.session.commit()
+
+        return redirect(url_for('index'))
 
     return render_template('new_sample.html', first_name=current_user.first_name, last_name=current_user.last_name)
 

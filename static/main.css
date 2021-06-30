@@ -53,6 +53,10 @@ html, body {
     border-radius: .1rem;
 }
 
+.custom-file {
+    margin-bottom: 10px;
+}
+
 .custom-file-label {
     margin: 0 15px;
 }
