@@ -111,7 +111,6 @@
 </body>
 <script>
     document.querySelector('.custom-file-input').addEventListener('change', function (e) {
-        console.log("hello");
         let fileName = document.getElementById("file").files[0].name;
         let nextSibling = e.target.nextElementSibling
         nextSibling.innerText = fileName

@@ -12,7 +12,7 @@ sample = Blueprint('sample', __name__)
 def get_samples():
     samples = Sample.query.all()
 
-    samples.sort(key=lambda s: s.num_downloads)
+    samples.sort(key=lambda s: s.num_downloads, reverse=True)
 
     samples_obj = []
     for sample in samples:
@@ -25,9 +25,10 @@ def get_samples():
             'sample_rate': sample.sample_rate,
             'bit_depth': sample.bit_depth,
             'num_downloads': sample.num_downloads,
-            'first_name': creator.first_name,
-            'last_name': creator.last_name,
-            'username': creator.username,
+            'anonymous': sample.anonymous,
+            'first_name': None if sample.anonymous else creator.first_name,
+            'last_name': None if sample.anonymous else creator.last_name,
+            'username': None if sample.anonymous else creator.username,
         })
 
     return samples_obj

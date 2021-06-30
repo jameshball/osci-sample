@@ -57,6 +57,10 @@ html, body {
     margin: 0 15px;
 }
 
+.sample-card {
+    margin-bottom: 20px;
+}
+
 .custom-file-input:lang(en)~.custom-file-label::after {
     content: "browse";
 }
