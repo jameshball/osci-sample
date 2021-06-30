@@ -124,14 +124,13 @@ def login():
 
     base_url = re.sub("^http:", "https:", request.base_url, 1)
 
-    print(base_url)
-
     # Prepare request to get access to specified Google data scopes
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
         redirect_uri=base_url + "/callback",
         scope=["openid", "email", "profile"],
     )
+
     return redirect(request_uri)
 
 
@@ -143,11 +142,14 @@ def callback():
     google_provider_cfg = get_google_provider_cfg()
     token_endpoint = google_provider_cfg["token_endpoint"]
 
+    url = re.sub("^http:", "https:", request.url, 1)
+    base_url = re.sub("^http:", "https:", request.base_url, 1)
+
     # Prepare and send a request to get tokens
     token_url, headers, body = client.prepare_token_request(
         token_endpoint,
-        authorization_response=request.url,
-        redirect_url=request.base_url,
+        authorization_response=url,
+        redirect_url=base_url,
         code=code
     )
     token_response = requests.post(
