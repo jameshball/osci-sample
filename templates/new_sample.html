@@ -48,13 +48,13 @@
 
 <body>
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-    <a class="navbar-brand d-none d-md-block" href="{{ url_for('index') }}">osci-sample</a>
+    <a class="navbar-brand d-none d-md-block" href="{{ url_for('index', _scheme='https') }}">osci-sample</a>
     <div class="pull-sm-left"></div>
     <div class="mx-auto">
-        <a href="{{ url_for('index') }}" role="button" class="btn btn-outline-light">view samples</a>
+        <a href="{{ url_for('index', _scheme='https') }}" role="button" class="btn btn-outline-light">view samples</a>
     </div>
     <div class="pull-sm-right">
-        <a href="{{ url_for('logout') }}" class="logout">
+        <a href="{{ url_for('logout', _scheme='https') }}" class="logout">
             <span class="material-icons add-icon">logout</span>
         </a>
     </div>

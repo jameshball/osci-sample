@@ -101,7 +101,7 @@ def new_sample():
         db.session.add(sample)
         db.session.commit()
 
-        return redirect(url_for('index'))
+        return redirect(url_for('index', _scheme='https'))
 
     return render_template('new_sample.html', first_name=current_user.first_name, last_name=current_user.last_name)
 
@@ -171,14 +171,14 @@ def callback():
 
     login_user(mem, remember=True)
 
-    return redirect(url_for('index'))
+    return redirect(url_for('index', _scheme='https'))
 
 
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('index', _scheme='https'))
 
 
 @app.route("/auth-test")
