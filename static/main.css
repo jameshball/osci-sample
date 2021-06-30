@@ -23,9 +23,19 @@ html, body {
     margin-right: -5px;
 }
 
-.download-button {
+.sample-buttons {
     margin-left: 20px;
     float: right;
+}
+
+.delete-button {
+    position: relative;
+    top: 8px;
+    right: 10px;
+}
+
+.delete-button:hover {
+    text-decoration: none;
 }
 
 .card-header {
@@ -36,12 +46,12 @@ html, body {
     min-height: 100px;
 }
 
-.logout {
+.red-button {
     color: white;
     transition: color .15s ease-in-out;
 }
 
-.logout:hover {
+.red-button:hover {
     color: #FF0000;
 }
 

@@ -3,7 +3,7 @@ import time
 from datetime import datetime
 from tempfile import NamedTemporaryFile
 
-from flask import Blueprint, request, Response, abort, send_file
+from flask import Blueprint, request, Response, abort, send_file, redirect, url_for
 from flask_login import current_user, login_required
 
 from backend.model import db, Member, Sample
@@ -33,6 +33,19 @@ def download_sample(sample_id):
     return send_file(temp.name)
 
 
+@sample.route('/sample/<int:sample_id>/delete', methods=['DELETE'])
+@login_required
+def delete_sample(sample_id):
+    sample = Sample.query.get(sample_id)
+    if current_user.id != sample.creator:
+        abort(401)
+
+    Sample.query.filter(Sample.id == sample_id).delete()
+    db.session.commit()
+
+    return ''
+
+
 def get_samples():
     samples = Sample.query.all()
 
@@ -46,6 +59,7 @@ def get_samples():
             'id': sample.id,
             'name': sample.name,
             'description': sample.description,
+            'creator': sample.creator,
             'sample_rate': sample.sample_rate,
             'bit_depth': sample.bit_depth,
             'num_downloads': sample.num_downloads,

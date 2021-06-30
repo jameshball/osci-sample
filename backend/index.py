@@ -74,7 +74,7 @@ def get_google_provider_cfg():
 @app.route('/')
 def index():
     if current_user.is_authenticated:
-        return render_template('index.html', samples=get_samples())
+        return render_template('index.html', samples=get_samples(), user_id=current_user.id)
     else:
         return render_template('login.html')
 

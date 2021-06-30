@@ -48,15 +48,17 @@
 
 <body>
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-    <a class="navbar-brand d-none d-md-block" href="{{ url_for('index', _scheme='https', _external=True) }}">osci-sample</a>
+    <a class="navbar-brand d-none d-md-block"
+       href="{{ url_for('index', _scheme='https', _external=True) }}">osci-sample</a>
     <div class="pull-sm-left"></div>
     <div class="mx-auto">
-        <a href="{{ url_for('new_sample', _scheme='https', _external=True) }}" role="button" class="btn btn-outline-light">
+        <a href="{{ url_for('new_sample', _scheme='https', _external=True) }}" role="button"
+           class="btn btn-outline-light">
             new sample<span class="material-icons add-icon">add</span>
         </a>
     </div>
     <div class="pull-sm-right">
-        <a href="{{ url_for('logout', _scheme='https', _external=True) }}" class="logout">
+        <a href="{{ url_for('logout', _scheme='https', _external=True) }}" class="red-button">
             <span class="material-icons add-icon">logout</span>
         </a>
     </div>
@@ -67,7 +69,9 @@
             <div id="samples" class="d-flex flex-column w-100">
                 {%for sample in samples%}
                 <div class="sample-card card w-100 text-white bg-dark">
-                    <div class="card-header">{{'anonymous' if sample.anonymous else sample.first_name}} {{'' if sample.anonymous else sample.last_name}} - {{sample.name}}</div>
+                    <div class="card-header">{{'anonymous' if sample.anonymous else sample.first_name}} {{'' if
+                        sample.anonymous else sample.last_name}} - {{sample.name}}
+                    </div>
                     {% if sample.description != '' %}
                     <div class="card-body">
                         <p class="card-text">{{sample.description}}</p>
@@ -75,9 +79,19 @@
                     {% endif %}
                     <div class="card-footer">
                         {{sample.bit_depth}}bit {{sample.sample_rate}}kHz
-                        <a target="_blank" href="{{ url_for('sample.download_sample', sample_id=sample.id, _scheme='https', _external=True) }}" role="button" class="btn btn-outline-light download-button">
-                            {{sample.num_downloads}}<span class="material-icons download-icon">download</span>
-                        </a>
+                        <div class="sample-buttons">
+                            {% if sample.creator == user_id %}
+                            <a href="javascript: fetch('/sample/' + '{{sample.id}}' + '/delete', {method: 'delete'}).then(() => location.reload()); "
+                               class="red-button delete-button">
+                                <span class="material-icons">delete</span>
+                            </a>
+                            {% endif %}
+                            <a target="_blank"
+                               href="{{ url_for('sample.download_sample', sample_id=sample.id, _scheme='https', _external=True) }}"
+                               role="button" class="btn btn-outline-light">
+                                {{sample.num_downloads}}<span class="material-icons download-icon">download</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 {%endfor%}
