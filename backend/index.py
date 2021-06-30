@@ -13,7 +13,6 @@ from flask_login import (
 )
 from oauthlib.oauth2 import WebApplicationClient
 import requests
-from werkzeug.utils import secure_filename
 
 from backend.sample import sample, get_samples
 from backend.member import member
@@ -27,7 +26,18 @@ GOOGLE_DISCOVERY_URL = (
 
 ALLOWED_EXTENSIONS = {'wav'}
 
+class ReverseProxied(object):
+    def __init__(self, app):
+        self.app = app
+
+    def __call__(self, environ, start_response):
+        scheme = environ.get('HTTP_X_FORWARDED_PROTO')
+        if scheme:
+            environ['wsgi.url_scheme'] = scheme
+        return self.app(environ, start_response)
+
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
+app.wsgi_app = ReverseProxied(app.wsgi_app)
 app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(24)
 app.register_blueprint(member)
 app.register_blueprint(sample)
@@ -101,7 +111,7 @@ def new_sample():
         db.session.add(sample)
         db.session.commit()
 
-        return redirect(url_for('index', _scheme='https'))
+        return redirect(url_for('index', _scheme='https', _external=True))
 
     return render_template('new_sample.html', first_name=current_user.first_name, last_name=current_user.last_name)
 
@@ -171,14 +181,14 @@ def callback():
 
     login_user(mem, remember=True)
 
-    return redirect(url_for('index', _scheme='https'))
+    return redirect(url_for('index', _scheme='https', _external=True))
 
 
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('index', _scheme='https'))
+    return redirect(url_for('index', _scheme='https', _external=True))
 
 
 @app.route("/auth-test")
