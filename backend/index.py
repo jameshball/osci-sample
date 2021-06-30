@@ -2,7 +2,7 @@ import functools
 import json
 import os
 
-from flask import Flask, request, redirect, abort, render_template
+from flask import Flask, request, redirect, abort, render_template, url_for
 from flask_migrate import Migrate
 from flask_login import (
     LoginManager,
@@ -129,7 +129,7 @@ def callback():
 
     login_user(mem, remember=True)
 
-    return 'Success!'
+    return redirect(url_for('index'))
 
 
 @app.route("/logout")
