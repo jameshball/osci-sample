@@ -121,11 +121,14 @@
             nextSibling.innerText = 'choose file';
             errElem.innerText = 'please choose a file';
         } else {
-            //let re = /(\.mp3|\.jpeg|\.bmp|\.gif|\.png)$/i;
+            let re = /(\.aac|\.ac3|\.aiff|\.amr|\.au|\.flac|\.m4a|\.midi|\.mka|\.mp3|\.oga|\.ra|\.voc|\.wav|\.wma)$/i;
             let fileSize = file.size / 1024 / 1024;
             if (fileSize > 20) {
                 elem.setCustomValidity("File size too large");
                 errElem.innerText = 'file cannot be larger than 20MiB';
+            } else if (!re.exec(file.name)) {
+                elem.setCustomValidity("File type not supported");
+                errElem.innerText = 'file type not supported';
             } else {
                 elem.setCustomValidity("");
             }
