@@ -1,5 +1,6 @@
 html, body {
     height: 100vh;
+    background-color: #282828;
     font-family: 'Fira Code', monospace;
 }
 
@@ -9,7 +10,6 @@ html, body {
 
 .samples {
     padding-top: 80px;
-    background-color: #282828;
 }
 
 .navbar-brand {
@@ -21,6 +21,11 @@ html, body {
     float: right;
     margin-left: 10px;
     margin-right: -5px;
+}
+
+.stop-icon {
+    float: right;
+    margin: 0 -5px;
 }
 
 .sample-buttons {
@@ -73,8 +78,14 @@ html, body {
 
 .sample-card {
     margin-bottom: 20px;
+    transition: all .15s ease-in-out;
 }
 
 .custom-file-input:lang(en)~.custom-file-label::after {
     content: "browse";
+}
+
+.sample-canvas {
+    width: 400px;
+    max-width: 100%;
 }

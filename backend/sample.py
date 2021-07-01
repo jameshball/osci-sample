@@ -13,7 +13,7 @@ sample = Blueprint('sample', __name__)
 download_map = {}
 
 
-@sample.route('/sample/<int:sample_id>/download')
+@sample.route('/sample/<int:sample_id>')
 @login_required
 def download_sample(sample_id):
     sample = Sample.query.get_or_404(sample_id)

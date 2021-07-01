@@ -14,6 +14,8 @@ from flask_login import (
 )
 from oauthlib.oauth2 import WebApplicationClient
 import requests
+import fleep
+import mutagen
 
 from backend.sample import sample, get_samples
 from backend.member import member
@@ -25,7 +27,7 @@ GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
 )
 
-ALLOWED_EXTENSIONS = {'wav'}
+ALLOWED_EXTENSIONS = {'aac', 'ac3', 'aiff', 'amr', 'au', 'flac', 'm4a', 'midi', 'mka', 'mp3', 'oga', 'ra', 'voc', 'wav', 'wma'}
 
 class ReverseProxied(object):
     def __init__(self, app):
@@ -99,12 +101,26 @@ def new_sample():
         anonymous = request.form.get('anonymous', 'off')
         description = request.form.get('description', '')
 
+        ext = file.filename.rsplit('.', 1)[1].lower()
+        info = fleep.get(file.read(128))
+        file.seek(0)
+
+        if ext != 'mp3' and 'audio' not in info.type:
+            abort(415)
+
+        audio_file = mutagen.File(file)
+
+        file.seek(0)
+
         sample = Sample()
         sample.audio_data = file.read()
         sample.name = file.filename
         sample.creator = current_user.id
-        sample.sample_rate = 192000
-        sample.bit_depth = 32
+
+        if audio_file is not None:
+            sample.sample_rate = audio_file.info.sample_rate
+            sample.bit_depth = audio_file.info.bits_per_sample
+
         sample.description = description
         sample.num_downloads = 0
         sample.anonymous = True if anonymous == 'on' else False
