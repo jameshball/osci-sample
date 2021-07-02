@@ -71,38 +71,41 @@
     <header class="container h-100">
         <div class="d-flex justify-content-center h-100">
             <div id="samples" class="d-flex flex-column w-100">
-                {%for sample in samples%}
-                <div id="sample-card{{sample.id}}" class="sample-card card w-100 text-white bg-dark">
-                    <div class="card-header">{{'anonymous' if sample.anonymous else sample.first_name}} {{'' if
-                        sample.anonymous else sample.last_name}} - {{sample.name}}
-                    </div>
-                    {% if sample.description != '' %}
-                    <div class="card-body">
-                        <p class="card-text">{{sample.description}}</p>
-                    </div>
-                    {% endif %}
-                    <div class="card-footer">
-                        {% if sample.bit_depth is none %}
-                        unknown audio details
-                        {% else %}
-                        {{ sample.bit_depth }}bit {{ sample.sample_rate }}kHz
+                {% for sample in samples %}
+                    <div id="sample-card{{ sample.id }}" class="sample-card card w-100 text-white bg-dark">
+                        <div class="card-header">{{ 'anonymous' if sample.anonymous else sample.first_name }} {{ '' if
+                        sample.anonymous else sample.last_name }} - {{ sample.name }}
+                        </div>
+                        {% if sample.description != '' %}
+                            <div class="card-body">
+                                <p class="card-text">{{ sample.description }}</p>
+                            </div>
                         {% endif %}
-                        <div class="sample-buttons">
-                            {% if sample.creator == user_id %}
-                            <a href="javascript: fetch('/sample/' + '{{sample.id}}' + '/delete', {method: 'delete'}).then(() => location.reload()); "
-                               class="red-button delete-button">
-                                <span class="material-icons">delete</span>
-                            </a>
-                            {% endif %}
-                            <a href="javascript: playAudio('{{sample.id}}')" role="button"
-                               class="btn btn-outline-light green-button">
-                                {{sample.num_downloads}}
-                                <span id="play{{sample.id}}" class="material-icons download-icon">play_arrow</span>
-                            </a>
+                        <div class="card-footer">
+                            <span class="audio-format">
+                                {% if sample.bit_depth is none %}
+                                    unknown audio format
+                                {% else %}
+                                    {{ sample.bit_depth }}bit {{ sample.sample_rate }}kHz
+                                {% endif %}
+                            </span>
+                            <div class="sample-buttons">
+                                {% if sample.creator == user_id %}
+                                    <a href="javascript: fetch('/sample/' + '{{ sample.id }}' + '/delete', {method: 'delete'}).then(() => location.reload()); "
+                                       class="red-button delete-button">
+                                        <span class="material-icons">delete</span>
+                                    </a>
+                                {% endif %}
+                                <a href="javascript: playAudio('{{ sample.id }}')" role="button"
+                                   class="btn btn-outline-light green-button">
+                                    {{ sample.num_downloads }}
+                                    <span id="play{{ sample.id }}"
+                                          class="material-icons download-icon">play_arrow</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                {%endfor%}
+                {% endfor %}
             </div>
         </div>
     </header>

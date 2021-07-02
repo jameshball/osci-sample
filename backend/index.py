@@ -101,6 +101,9 @@ def new_sample():
         anonymous = request.form.get('anonymous', 'off')
         description = request.form.get('description', '')
 
+        if len(description) > 400:
+            abort(400)
+
         ext = file.filename.rsplit('.', 1)[1].lower()
         info = fleep.get(file.read(128))
         file.seek(0)

@@ -113,3 +113,21 @@ html, body {
         display: block !important;
     }
 }
+
+@media (min-width: 768px) {
+    #samples {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}
+
+@media (min-width: 992px) {
+    #samples {
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+}
+
+.audio-format {
+    color: #aaaaaa;
+}
