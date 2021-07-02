@@ -60,8 +60,8 @@ html, body {
     color: #FF0000;
 }
 
-.custom-checkbox .custom-control-input:checked~.custom-control-label::before{
-  background-color: #00FF00;
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #00FF00;
 }
 
 .custom-checkbox .custom-control-indicator {
@@ -81,11 +81,28 @@ html, body {
     transition: all .15s ease-in-out;
 }
 
-.custom-file-input:lang(en)~.custom-file-label::after {
+.custom-file-input:lang(en) ~ .custom-file-label::after {
     content: "browse";
 }
 
 .sample-canvas {
     width: 400px;
     max-width: 100%;
+}
+
+.donate-button {
+    border-color: #00FF00;
+    color: #00FF00;
+    margin-right: 5px;
+}
+
+.pull-sm-right {
+    position: absolute;
+    right: 44px;
+}
+
+@media (min-width: 350px) {
+    .d-xs-block {
+        display: block !important;
+    }
 }
