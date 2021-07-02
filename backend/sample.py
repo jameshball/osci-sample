@@ -24,7 +24,10 @@ def download_sample(sample_id):
     if sample_id not in download_map:
         download_map[sample_id] = []
 
-    ip = request.remote_addr
+    if (header := request.headers.get("X-Forwarded-For")) is not None:
+        ip = header.split(',')[0]
+    else:
+        ip = request.remote_addr
 
     if ip not in download_map[sample_id]:
         sample.num_downloads = Sample.num_downloads + 1
