@@ -14,7 +14,6 @@ download_map = {}
 
 
 @sample.route('/sample/<int:sample_id>')
-@login_required
 def download_sample(sample_id):
     sample = Sample.query.get_or_404(sample_id)
     file_ext = sample.name.rsplit('.', 1)[1].lower()
@@ -25,9 +24,11 @@ def download_sample(sample_id):
     if sample_id not in download_map:
         download_map[sample_id] = []
 
-    if current_user.id not in download_map[sample_id]:
+    ip = request.remote_addr
+
+    if ip not in download_map[sample_id]:
         sample.num_downloads = Sample.num_downloads + 1
-        download_map[sample_id].append(current_user.id)
+        download_map[sample_id].append(ip)
         db.session.commit()
 
     return send_file(temp.name)
