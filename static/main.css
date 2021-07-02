@@ -131,3 +131,16 @@ html, body {
 .audio-format {
     color: #aaaaaa;
 }
+
+.footer-text {
+    color: white;
+    text-align: center;
+}
+
+.footer-text a {
+    color: #00FF00;
+}
+
+.form-card {
+    margin-bottom: 20px;
+}
