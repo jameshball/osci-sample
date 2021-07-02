@@ -91,9 +91,16 @@ html, body {
 }
 
 .donate-button {
+    margin-right: 5px;
+}
+
+.green-button {
     border-color: #00FF00;
     color: #00FF00;
-    margin-right: 5px;
+}
+
+.green-button:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 255, 0, 0.5);
 }
 
 .pull-sm-right {
