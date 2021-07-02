@@ -75,10 +75,7 @@ def get_google_provider_cfg():
 
 @app.route('/')
 def index():
-    if current_user.is_authenticated:
-        return render_template('index.html', samples=get_samples(), user_id=current_user.id)
-    else:
-        return render_template('login.html')
+    return render_template('index.html', samples=get_samples(), user=current_user)
 
 
 def allowed_file(filename):
@@ -87,9 +84,11 @@ def allowed_file(filename):
 
 
 @app.route('/new_sample', methods=['GET', 'POST'])
-@login_required
 def new_sample():
-    if request.method == 'POST':
+    if request.method == 'POST' and not current_user.is_authenticated:
+        abort(401)
+
+    if request.method == 'POST' and current_user.is_authenticated:
         if 'file' not in request.files:
             return redirect(request.url)
         file = request.files['file']
@@ -133,7 +132,11 @@ def new_sample():
 
         return redirect(url_for('index', _scheme='https', _external=True))
 
-    return render_template('new_sample.html', first_name=current_user.first_name, last_name=current_user.last_name)
+    if current_user.is_authenticated:
+        return render_template('new_sample.html', user=current_user)
+    else:
+        return render_template('login.html')
+
 
 
 @app.route("/login")
@@ -207,7 +210,7 @@ def callback():
 
     login_user(mem, remember=True)
 
-    return redirect(url_for('index', _scheme='https', _external=True))
+    return redirect(url_for('new_sample', _scheme='https', _external=True))
 
 
 @app.route("/logout")

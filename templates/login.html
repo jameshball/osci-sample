@@ -1,61 +1,19 @@
-<!doctype html>
-
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>osci-sample</title>
-    <meta name="description" content="A platform for sharing oscilloscope music samples.">
-    <meta name="author" content="James Ball">
-
-    <meta property="og:title" content="osci-sample">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://osci-sample.herokuapp.com">
-    <meta property="og:description" content="A platform for sharing oscilloscope music samples.">
-    <meta property="og:image" content="image.png">
-
-    <link rel="apple-touch-icon" sizes="180x180" href="../static/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon-16x16.png">
-    <link rel="manifest" href="../static/site.webmanifest">
-    <link rel="mask-icon" href="../static/safari-pinned-tab.svg" color="#282828">
-    <link rel="shortcut icon" href="../static/favicon.ico">
-    <meta name="msapplication-TileColor" content="#282828">
-    <meta name="msapplication-config" content="../static/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossOrigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossOrigin="anonymous">
-    </script>
-
-    <link rel="stylesheet" href="../static/login.css">
-
-</head>
-
-<body>
-<section class="h-100 login">
-    <header class="container h-100">
-        <div class="d-flex align-items-center justify-content-center h-100">
-            <div class="d-flex flex-column">
-                <p class="text align-self-center p-2 logo-text">osci-sample</p>
-                <img class="text align-self-center p-2 logo" width="1000" alt="osci-sample" src="../static/logo.png"/>
+{% extends "base.html" %}
+{% import 'base.html' as base %}
+{% block back_button %}
+    <a href="{{ url_for('index', _scheme='https', _external=True) }}" role="button" class="btn btn-outline-light">view
+        samples</a>
+{% endblock %}
+{% block content %}
+    <div id="samples" class="d-flex flex-column w-100">
+        <div style="padding-bottom: 10px" class="form-card card w-100 text-white bg-dark">
+            <div style="color: #00FF00; margin-top: 10px" class="card-header mx-auto">sign in to upload a sample</div>
+            <div class="card-body mx-auto">
                 <a class="btn btn-outline-dark google-sign-in text align-self-center p-2" href="/login" role="button">
                     <span><img width="18px" alt="Google sign-in" src="../static/google.png"/></span>
                     Sign in with Google</a>
             </div>
         </div>
-    </header>
-</section>
-</body>
-</html>
+        {{ base.footer() }}
+    </div>
+{% endblock %}

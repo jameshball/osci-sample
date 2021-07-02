@@ -4,6 +4,9 @@
     <a href="{{ url_for('index', _scheme='https', _external=True) }}" role="button" class="btn btn-outline-light">view
         samples</a>
 {% endblock %}
+{% block logout_button %}
+    {{ base.logout(user.is_authenticated) }}
+{% endblock %}
 {% block content %}
     <div class="d-flex flex-column w-100">
         <div class="form-card card w-100 text-white bg-dark">
@@ -14,7 +17,7 @@
                         <label for="staticName" class="col-lg-2 col-form-label">Name</label>
                         <div class="col-lg-10">
                             <input type="text" readonly class="form-control-plaintext text-white"
-                                   id="staticName" value="{{ first_name }} {{ last_name }}">
+                                   id="staticName" value="{{ user.first_name }} {{ user.last_name }}">
                         </div>
                     </div>
                     <div class="form-group row">

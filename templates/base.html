@@ -11,7 +11,7 @@
 
     <meta property="og:title" content="osci-sample">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://osci-sample.herokuapp.com">
+    <meta property="og:url" content="https://www.osci-sample.com">
     <meta property="og:description" content="A platform for sharing oscilloscope music samples.">
     <meta property="og:image" content="image.png">
 
@@ -60,9 +60,7 @@
             donate<span class="material-icons add-icon">attach_money</span>
         </a>
     </div>
-    <a href="{{ url_for('logout', _scheme='https', _external=True) }}" class="red-button" style="margin-bottom: 8px;">
-        <span style="margin-top: 7px;" class="material-icons add-icon">logout</span>
-    </a>
+    {% block logout_button %}{% endblock %}
 </nav>
 <section class="h-100 samples">
     <header class="container h-100">
@@ -81,4 +79,12 @@
         <p>add new features or raise issues on <a href="https://github.com/jameshball/osci-sample">github</a></p>
         <p>send me an email at <a href="mailto:james@ball.sh">james@ball.sh</a></p>
     </div>
+{%- endmacro %}
+
+{% macro logout(authenticated) -%}
+    {% if authenticated %}
+    <a href="{{ url_for('logout', _scheme='https', _external=True) }}" class="red-button" style="margin-bottom: 8px;">
+        <span style="margin-top: 7px;" class="material-icons add-icon">logout</span>
+    </a>
+    {% endif %}
 {%- endmacro %}

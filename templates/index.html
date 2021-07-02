@@ -3,8 +3,11 @@
 {% block back_button %}
     <a href="{{ url_for('new_sample', _scheme='https', _external=True) }}" role="button"
        class="btn btn-outline-light">
-        new sample<span class="material-icons add-icon">add</span>
+        upload sample<span class="material-icons add-icon">add</span>
     </a>
+{% endblock %}
+{% block logout_button %}
+    {{ base.logout(user.is_authenticated) }}
 {% endblock %}
 {% block content %}
     <div id="samples" class="d-flex flex-column w-100">
@@ -27,7 +30,7 @@
                                 {% endif %}
                             </span>
                     <div class="sample-buttons">
-                        {% if sample.creator == user_id %}
+                        {% if sample.creator == user.id %}
                             <a href="javascript: fetch('/sample/' + '{{ sample.id }}' + '/delete', {method: 'delete'}).then(() => location.reload()); "
                                class="red-button delete-button">
                                 <span class="material-icons">delete</span>

@@ -144,3 +144,37 @@ html, body {
 .form-card {
     margin-bottom: 20px;
 }
+
+.login-text {
+    font-family: 'Fira Code', monospace;
+    font-size: 5vmin;
+    color: #00FF00;
+}
+
+.google-sign-in {
+    padding: 9px 9px 9px 3px;
+    text-transform: none;
+    font-family: 'Roboto', sans-serif;
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: #757575;
+    background-color: white;
+}
+
+.google-sign-in span {
+    background-color: white;
+    border-radius: 3px;
+    padding: 8px 4px 8px 9px;
+    margin-right: 12px;
+    margin-left: -5px;
+}
+
+.google-sign-in img {
+    margin-bottom: 3px;
+    margin-right: 5px;
+}
+
+.google-sign-in:hover {
+    background-color: #4285F4;
+    border: none;
+}
