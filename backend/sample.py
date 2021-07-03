@@ -21,18 +21,19 @@ def download_sample(sample_id):
     temp.write(sample.audio_data)
     temp.close()
 
-    if sample_id not in download_map:
-        download_map[sample_id] = []
+    if request.args.get('play') != 'False':
+        if sample_id not in download_map:
+            download_map[sample_id] = []
 
-    if (header := request.headers.get("X-Forwarded-For")) is not None:
-        ip = header.split(',')[0]
-    else:
-        ip = request.remote_addr
+        if (header := request.headers.get("X-Forwarded-For")) is not None:
+            ip = header.split(',')[0]
+        else:
+            ip = request.remote_addr
 
-    if ip not in download_map[sample_id]:
-        sample.num_downloads = Sample.num_downloads + 1
-        download_map[sample_id].append(ip)
-        db.session.commit()
+        if ip not in download_map[sample_id]:
+            sample.num_downloads = Sample.num_downloads + 1
+            download_map[sample_id].append(ip)
+            db.session.commit()
 
     return send_file(temp.name)
 

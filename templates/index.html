@@ -40,7 +40,11 @@
                            class="btn btn-outline-light green-button">
                             {{ sample.num_downloads }}
                             <span id="play{{ sample.id }}"
-                                  class="material-icons download-icon">play_arrow</span>
+                                  class="material-icons play-icon">play_arrow</span>
+                        </a>
+                        <a href="{{ url_for('sample.download_sample', sample_id=sample.id, play=false) }}" role="button"
+                           class="btn btn-outline-light green-button">
+                            <span class="material-icons download-icon">download</span>
                         </a>
                     </div>
                 </div>

@@ -17,9 +17,15 @@ html, body {
     color: #00FF00 !important;
 }
 
-.add-icon, .download-icon {
+.add-icon, .play-icon {
     float: right;
     margin-left: 10px;
+    margin-right: -5px;
+}
+
+.download-icon {
+    float: right;
+    margin-left: -5px;
     margin-right: -5px;
 }
 
