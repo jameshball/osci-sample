@@ -1,5 +1,5 @@
 pytest==6.2.4
-Flask==2.0.1
+Flask==2.3.2
 requests==2.21.0
 oauthlib==3.0.1
 SQLAlchemy==1.4.20
